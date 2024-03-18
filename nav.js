@@ -3,11 +3,12 @@
 		const nav = document.querySelector('.nav');
 		const navButton = nav.querySelector('.nav-button');
 		const mobileNav = nav.querySelector('.mobile-nav');
-		const mobileNavLinks = [
-			...mobileNav.querySelectorAll('.button'),
-			...mobileNav.querySelectorAll('.nav-link'),
-			...mobileNav.querySelector('.nav-footer').children,
-		];
+		const mobileNavWrapper = nav.querySelector('.mobile-nav-wrapper');
+		// const mobileNavLinks = [
+		// 	...mobileNav.querySelectorAll('.button'),
+		// 	...mobileNav.querySelectorAll('.nav-link'),
+		// 	...mobileNav.querySelector('.nav-footer').children,
+		// ];
 
 		function navClick(e) {
 			//check to see if we're opening or closing the nav
@@ -20,17 +21,24 @@
 			}
 		}
 
-		const tl = new gsap.timeline({ paused: true, defaults : {
-            ease: "Power3.out",
-            duration: 0.4
-        } });
+		const tl = new gsap.timeline({
+			paused: true,
+			defaults: {
+				ease: 'Power3.out',
+				duration: 0.4,
+			},
+		});
 
-		tl.to(mobileNav, { height: 'auto' }).from(mobileNavLinks, {
-			opacity: 0,
-			transform: "translateY(-2rem)",
-			stagger: { amount: 0.25 },
-            delay: 0.2
-		}, "<");
+		tl.to(mobileNav, { height: 'auto' })
+		.from(
+			mobileNavWrapper,
+			{
+				opacity: 0,
+				transform: 'translateY(-2rem)',
+				delay: 0.2,
+			},
+			'<'
+		);
 
 		function openNav() {
 			tl.restart();

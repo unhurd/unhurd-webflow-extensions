@@ -7,6 +7,15 @@
 			//check for type of slider
 			if (slider.querySelector('.swiper.is-artist')) {
                 //SETUP SLIDER
+
+				const slides = [...slider.querySelectorAll(".swiper-slide")];
+				const noOfSlides =  Math.max(Math.ceil(slider.offsetWidth / slides[0].offsetWidth), 10);
+				const slideNum = Math.ceil(slider.offsetWidth / slides[0].offsetWidth);
+				
+				for(let i = 0; i < noOfSlides * 3 ; i++){
+					slider.querySelector(".swiper-wrapper").appendChild(slides[i % 6].cloneNode(true));
+				}
+
 				const testimonialsSlider = new Swiper(
 					slider.querySelector('.swiper.is-artist'),
 					{
@@ -14,9 +23,10 @@
 						effect: 'slide',
 						direction: 'horizontal',
 						loop: true,
-						loopedSlides: 20,
-						slidesPerView: "auto",
-						// loopAdditionalSlides: 8,
+						loopedSlides: slideNum,
+						slidesPerView: 1.25,
+						centeredSlides: true,
+						loopAdditionalSlides: slideNum * 2,
 						keyboard: true,
 						spaceBetween: 24,
 						navigation: {
@@ -24,14 +34,15 @@
 							prevEl: slider.querySelector('.swiper-slide-button.is-prev'),
 						},
 						breakpoints: {
-							991: {
-								slidesPerView: "auto"
+							
+							600: {
+								slidesPerView: 2.5
 							},
 
-							375: {
-								slidesPerView: "auto"
-							}
 
+							991: {
+								slidesPerView: slideNum * 0.825
+							},
 						}
 					}
 				);
